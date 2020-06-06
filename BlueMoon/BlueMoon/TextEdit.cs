@@ -17,14 +17,6 @@ namespace BlueMoon
             InitializeComponent();
         }
 
-        //testiraj ovo za otvaranje:
-        /*
-       protected override  void OnNavigatedTo(NavigationEventArgs args)
-        {
-            args.Files.
-        }
-        */
-
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = "";
@@ -146,7 +138,6 @@ namespace BlueMoon
             {
                 Application.Exit();
             }
-
 
         }
     }
