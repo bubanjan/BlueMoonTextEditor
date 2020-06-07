@@ -29,7 +29,7 @@ namespace BlueMoon
             if (saveAsDialog.ShowDialog() == DialogResult.OK)
             {
                 area.SaveFile(saveAsDialog.FileName, RichTextBoxStreamType.PlainText);
-                this.Text = saveAsDialog.FileName; // file name in windows frame
+                this.Text = saveAsDialog.FileName; 
             }
         }
 
@@ -42,7 +42,7 @@ namespace BlueMoon
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            if (this.Text.Length > 0) // controll file name length
+            if (this.Text.Length > 0) 
                 area.SaveFile(this.Text, RichTextBoxStreamType.PlainText);
         }
 
@@ -51,19 +51,15 @@ namespace BlueMoon
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 area.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-                this.Text = openFileDialog1.FileName; // filename in window frame
+                this.Text = openFileDialog1.FileName; 
             }
         }
 
-        private void ContextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
 
         private void saveOldText()
         {
             string s;
-            if (Text != "")    // Finns filnamn i fönsterramen?
+            if (Text != "")    
                 s = "Do you want to save changes in this file? " + Text + "?";
             else
                 s = "Do you want to save text?";
@@ -116,7 +112,7 @@ namespace BlueMoon
                     if (saveAsDialog.ShowDialog() == DialogResult.OK)
                     {
                         area.SaveFile(saveAsDialog.FileName, RichTextBoxStreamType.PlainText);
-                        this.Text = saveAsDialog.FileName; // file name in windows frame
+                        this.Text = saveAsDialog.FileName; 
                     }
 
                 }
