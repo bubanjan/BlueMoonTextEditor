@@ -23,22 +23,9 @@ namespace BlueMoon
           
         }
 
-        private void SaveAsButton_Click(object sender, EventArgs e)
-        {
-            saveAsDialog.FileName = "Document.txt";
-            if (saveAsDialog.ShowDialog() == DialogResult.OK)
-            {
-                area.SaveFile(saveAsDialog.FileName, RichTextBoxStreamType.PlainText);
-                this.Text = saveAsDialog.FileName; 
-            }
-        }
+        
 
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            if (area.Modified)
-                saveOldText();
-            Application.Exit();
-        }
+       
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
@@ -46,14 +33,7 @@ namespace BlueMoon
                 area.SaveFile(this.Text, RichTextBoxStreamType.PlainText);
         }
 
-        private void OpenButton_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                area.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-                this.Text = openFileDialog1.FileName; 
-            }
-        }
+        
 
 
         private void saveOldText()
@@ -91,17 +71,7 @@ namespace BlueMoon
             area.ForeColor = Color.GreenYellow;
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            if (area.Modified)
-            {
-                saveOldText();
-                area.Clear();
-
-            }
-
-        }
-
+      
         private void TextEdit_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (this.Text == "" && area.Modified)
@@ -135,6 +105,66 @@ namespace BlueMoon
                 Application.Exit();
             }
 
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (area.Modified)
+            {
+                saveOldText();
+                area.Clear();
+
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                area.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+                this.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveAsDialog.FileName = "Document.txt";
+            if (saveAsDialog.ShowDialog() == DialogResult.OK)
+            {
+                area.SaveFile(saveAsDialog.FileName, RichTextBoxStreamType.PlainText);
+                this.Text = saveAsDialog.FileName;
+            }
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.Text.Length > 0)
+                area.SaveFile(this.Text, RichTextBoxStreamType.PlainText);
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (area.Modified)
+                saveOldText();
+            Application.Exit();
+        }
+
+        private void lightMoonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            area.BackColor = Color.FromArgb(20, 102, 184);
+            area.ForeColor = Color.White;
+        }
+
+        private void darkMoonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            area.BackColor = Color.Black;
+            area.ForeColor = Color.GreenYellow;
+        }
+
+        private void blueMoonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            area.BackColor = Color.FromArgb(0, 0, 64);
+            area.ForeColor = Color.White;
         }
     }
     
