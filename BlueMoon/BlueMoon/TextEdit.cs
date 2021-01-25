@@ -23,18 +23,7 @@ namespace BlueMoon
           
         }
 
-        
-
-       
-
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            if (this.Text.Length > 0) 
-                area.SaveFile(this.Text, RichTextBoxStreamType.PlainText);
-        }
-
-        
-
+      
 
         private void saveOldText()
         {
@@ -44,7 +33,12 @@ namespace BlueMoon
             else
                 s = "Do you want to save text?";
             if (MessageBox.Show(s, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                SaveButton_Click(null, null);
+
+            {
+                if (this.Text.Length > 0)
+                    area.SaveFile(this.Text, RichTextBoxStreamType.PlainText);
+            }
+               
         }
 
 
