@@ -20,10 +20,10 @@ namespace BlueMoon
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = "";
-          
+
         }
 
-      
+
 
         private void saveOldText()
         {
@@ -33,12 +33,10 @@ namespace BlueMoon
             else
                 s = "Do you want to save text?";
             if (MessageBox.Show(s, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                saveToolStripMenuItem_Click(null, null);
 
-            {
-                if (this.Text.Length > 0)
-                    area.SaveFile(this.Text, RichTextBoxStreamType.PlainText);
-            }
-               
+
+
         }
 
 
@@ -68,36 +66,9 @@ namespace BlueMoon
       
         private void TextEdit_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (this.Text == "" && area.Modified)
-            {
-                if (MessageBox.Show("Do you want to save this text?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    saveAsDialog.FileName = "Document.txt";
-                    if (saveAsDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        area.SaveFile(saveAsDialog.FileName, RichTextBoxStreamType.PlainText);
-                        this.Text = saveAsDialog.FileName; 
-                    }
-
-                }
-                else
-                {
-                    Application.Exit();
-                }
-                    
-
-            }
-           
-            else if (this.Text != "" && area.Modified == true)
-            {
+            if (area.Modified)
                 saveOldText();
-                area.Clear();
-
-            }
-            else if (this.Text == "")
-            {
-                Application.Exit();
-            }
+            Application.Exit();
 
         }
 
@@ -106,34 +77,44 @@ namespace BlueMoon
             if (area.Modified)
             {
                 saveOldText();
-                area.Clear();
+                area.Text = "";
+                Text = "";
+                area.Modified = false;
 
             }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (area.Modified)
+                saveOldText();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 area.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
                 this.Text = openFileDialog1.FileName;
+                area.Modified = false;
             }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveAsDialog.FileName = "Document.txt";
+            saveAsDialog.FileName = "";
             if (saveAsDialog.ShowDialog() == DialogResult.OK)
             {
                 area.SaveFile(saveAsDialog.FileName, RichTextBoxStreamType.PlainText);
                 this.Text = saveAsDialog.FileName;
+                area.Modified = false;
             }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.Text.Length > 0)
+            if (this.Text != "")
                 area.SaveFile(this.Text, RichTextBoxStreamType.PlainText);
+            else
+                saveAsToolStripMenuItem_Click(null, null);
+            area.Modified = false;
+
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
